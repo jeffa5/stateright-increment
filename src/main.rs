@@ -49,5 +49,7 @@ impl Model for State {
 }
 
 fn main() {
-    State::default().checker().serve("localhost:3000");
+    let address = "localhost:3000";
+    println!("Serving on http://{}", address);
+    State::default().checker().serve(address);
 }
