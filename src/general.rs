@@ -40,28 +40,20 @@ impl Model for State {
         match action {
             Action::Read(n) => {
                 if last_state.pcs[n] == 1 {
-                    let mut ts = last_state.ts.clone();
-                    ts[n] = last_state.i;
-                    let mut pcs = last_state.pcs.clone();
-                    pcs[n] = 2;
-                    Some(State {
-                        ts,
-                        pcs,
-                        ..last_state.clone()
-                    })
+                    let mut state = last_state.clone();
+                    state.ts[n] = last_state.i;
+                    state.pcs[n] = 2;
+                    Some(state)
                 } else {
                     None
                 }
             }
             Action::Write(n) => {
                 if last_state.pcs[n] == 2 {
-                    let mut pcs = last_state.pcs.clone();
-                    pcs[n] = 3;
-                    Some(State {
-                        i: last_state.ts[n] + 1,
-                        pcs,
-                        ..last_state.clone()
-                    })
+                    let mut state = last_state.clone();
+                    state.pcs[n] = 3;
+                    state.i = last_state.ts[n] + 1;
+                    Some(state)
                 } else {
                     None
                 }
